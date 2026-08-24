@@ -156,9 +156,10 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
             ticker = yf.Ticker(ticker_symbol)
             hist = ticker.history(period=yf_period, interval="1d")
             if hist.empty or len(hist) < 5:
-                hist = ticker.history(period="1y", interval="1d")
+                hist = yf.download(ticker_symbol, period=yf_period, progress=False)
             if hist.empty or len(hist) < 5:
                 continue
+
 
 
             hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
