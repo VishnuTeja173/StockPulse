@@ -28,8 +28,10 @@ export default function TradingViewHub() {
   const [taData, setTaData] = useState(null);
   const [aiDigest, setAiDigest] = useState(null);
   const [error, setError] = useState(null);
+  const [exchange, setExchange] = useState('NSE');
 
   const [cdpStatus, setCdpStatus] = useState(null);
+
   const [checkingCdp, setCheckingCdp] = useState(false);
 
   useEffect(() => {
@@ -177,15 +179,32 @@ export default function TradingViewHub() {
         <div className="lg:col-span-7 xl:col-span-8 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-900/80 border border-slate-800 rounded-xl px-4 py-2.5 gap-2">
             <div className="flex items-center gap-3 flex-wrap">
-              <span className="font-bold text-slate-200 text-sm">{taData?.tradingview_symbol || activeSymbol}</span>
+              <span className="font-bold text-slate-200 text-sm">{exchange}:{activeSymbol}</span>
+              
+              {/* Exchange Selector Toggle (NSE / BSE) */}
+              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs font-medium">
+                <button
+                  onClick={() => setExchange('NSE')}
+                  className={`px-2 py-0.5 rounded transition ${exchange === 'NSE' ? 'bg-blue-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'}`}
+                >
+                  NSE
+                </button>
+                <button
+                  onClick={() => setExchange('BSE')}
+                  className={`px-2 py-0.5 rounded transition ${exchange === 'BSE' ? 'bg-amber-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'}`}
+                >
+                  BSE
+                </button>
+              </div>
+
               {taData?.current_price > 0 && (
                 <span className={`text-sm font-semibold ${taData.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                   ₹{taData.current_price} ({taData.change >= 0 ? '+' : ''}{taData.change_percent}%)
                 </span>
               )}
-              {/* Direct link to TradingView.com for restricted symbols like GRAPHITE */}
+              {/* Direct link to TradingView.com for restricted symbols */}
               <a
-                href={`https://www.tradingview.com/chart/?symbol=${encodeURIComponent(taData?.tradingview_symbol || activeSymbol)}`}
+                href={`https://www.tradingview.com/chart/?symbol=${encodeURIComponent(`${exchange}:${activeSymbol}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded-lg transition flex items-center gap-1 font-medium"
@@ -215,15 +234,16 @@ export default function TradingViewHub() {
           {/* Embedded TradingView Advanced Charting Widget */}
           <div className="h-[560px]">
             <TradingViewWidget
-              symbol={taData?.tradingview_symbol || activeSymbol}
+              symbol={`${exchange}:${activeSymbol}`}
               interval={timeframe}
               theme="dark"
             />
           </div>
-          <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
-            <span>💡 If TradingView restricts widget embedding for a specific symbol (e.g. GRAPHITE), click <strong className="text-blue-400">"🔗 Open on TradingView.com"</strong> above to view full chart.</span>
-            <span className="hidden md:inline">Gemini AI Analysis remains active for all stocks.</span>
+          <div className="flex items-center justify-between text-[11px] bg-slate-900/60 p-2 rounded-xl border border-slate-800 text-slate-300">
+            <span>💡 If TradingView restricts embedding (showing <em>"This symbol is only available on TradingView"</em>), click <strong className="text-amber-400">BSE</strong> above or <strong className="text-blue-400">"🔗 Open on TradingView.com"</strong>.</span>
+            <span className="hidden md:inline text-slate-400">Gemini AI Analysis remains 100% active.</span>
           </div>
+
 
         </div>
 
