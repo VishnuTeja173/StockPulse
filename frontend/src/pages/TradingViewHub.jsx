@@ -277,29 +277,73 @@ export default function TradingViewHub() {
                   </p>
                 )}
 
-                {/* Trade Bias Action Card */}
-                {aiDigest?.trade_bias && (
-                  <div className="bg-gradient-to-br from-slate-800/80 to-slate-900 border border-slate-700/60 rounded-xl p-3.5 space-y-2">
+                {/* Market Regime & Trade Status Badges */}
+                <div className="flex items-center gap-2 flex-wrap text-xs">
+                  <div className="bg-blue-500/10 border border-blue-500/30 text-blue-300 px-2.5 py-1 rounded-lg font-mono font-medium">
+                    Regime: <span className="font-bold">{aiDigest?.market_regime || taData?.market_regime}</span>
+                  </div>
+                  <div className="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 px-2.5 py-1 rounded-lg font-mono font-medium">
+                    Status: <span className="font-bold">{aiDigest?.trade_status || taData?.trade_status}</span>
+                  </div>
+                </div>
+
+                {/* AI Summary */}
+                {aiDigest?.summary && (
+                  <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    {aiDigest.summary}
+                  </p>
+                )}
+
+                {/* Trade Setup Action Card */}
+                {aiDigest?.trade_setup && (
+                  <div className="bg-gradient-to-br from-slate-800/90 to-slate-900 border border-slate-700/60 rounded-xl p-3.5 space-y-2.5">
                     <div className="flex justify-between items-center text-xs">
-                      <span className="text-slate-400 font-medium">Trade Bias Action:</span>
-                      <span className="font-extrabold text-blue-400 tracking-wide uppercase">{aiDigest.trade_bias.action}</span>
+                      <span className="text-slate-400 font-medium">Trade Setup Action:</span>
+                      <span className={`font-extrabold tracking-wide uppercase px-2 py-0.5 rounded ${
+                        aiDigest.trade_setup.action === 'LONG' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                        aiDigest.trade_setup.action === 'SHORT' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-slate-800 text-slate-400'
+                      }`}>
+                        {aiDigest.trade_setup.action}
+                      </span>
                     </div>
-                    <div className="grid grid-cols-3 gap-2 text-center text-xs pt-1 border-t border-slate-800">
+
+                    {/* Trigger Condition */}
+                    {aiDigest.trade_setup.trigger && (
+                      <div className="text-[11px] bg-slate-950/80 p-2 rounded-lg border border-slate-800 text-slate-300">
+                        <span className="text-slate-400 font-medium block">Trade Trigger Condition:</span>
+                        <span>{aiDigest.trade_setup.trigger}</span>
+                      </div>
+                    )}
+
+                    {/* Entry / Stop Loss / Targets Grid */}
+                    <div className="grid grid-cols-4 gap-1.5 text-center text-xs pt-1 border-t border-slate-800">
                       <div>
-                        <div className="text-slate-500 text-[10px]">Target</div>
-                        <div className="font-semibold text-emerald-400">₹{aiDigest.trade_bias.target_price}</div>
+                        <div className="text-slate-500 text-[10px]">Entry</div>
+                        <div className="font-semibold text-slate-200">₹{aiDigest.trade_setup.entry || taData?.current_price}</div>
                       </div>
                       <div>
                         <div className="text-slate-500 text-[10px]">Stop Loss</div>
-                        <div className="font-semibold text-rose-400">₹{aiDigest.trade_bias.stop_loss}</div>
+                        <div className="font-semibold text-rose-400">₹{aiDigest.trade_setup.stop_loss}</div>
+                      </div>
+                      <div>
+                        <div className="text-slate-500 text-[10px]">Target 1 / 2</div>
+                        <div className="font-semibold text-emerald-400">₹{aiDigest.trade_setup.target_1}</div>
                       </div>
                       <div>
                         <div className="text-slate-500 text-[10px]">R:R Ratio</div>
-                        <div className="font-semibold text-indigo-300">{aiDigest.trade_bias.risk_reward_ratio}</div>
+                        <div className="font-semibold text-indigo-300">{aiDigest.trade_setup.risk_reward || aiDigest.trade_setup.risk_reward_ratio}</div>
                       </div>
                     </div>
+
+                    {/* Invalidation rule */}
+                    {aiDigest.invalidation && (
+                      <div className="text-[10px] text-amber-400/90 pt-1 border-t border-slate-800/80">
+                        <span className="font-semibold">Invalidation Rule:</span> {aiDigest.invalidation}
+                      </div>
+                    )}
                   </div>
                 )}
+
 
                 {/* 7-Tier Technical Key Levels Roadmap */}
                 {taData?.pivot_points && (
