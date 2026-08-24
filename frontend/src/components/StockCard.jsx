@@ -148,8 +148,16 @@ export default function StockCard({ data, index }) {
             <button onClick={() => setShowChart(true)}
               className="ml-auto flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium transition-all hover:opacity-90"
               style={{ background: "rgba(96,165,250,0.12)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.25)" }}>
-              <LineChart size={11} /> Chart
+              <LineChart size={11} /> Quick Chart
             </button>
+
+            {/* TradingView Studio link button */}
+            <a href={`/tradingview/${symbol}`}
+              className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium transition-all hover:opacity-90"
+              style={{ background: "rgba(110,231,183,0.12)", color: "#6ee7b7", border: "1px solid rgba(110,231,183,0.25)" }}>
+              <TrendingUp size={11} /> TradingView
+            </a>
+
 
             {/* News toggle */}
             <button onClick={() => setExpanded(!expanded)}

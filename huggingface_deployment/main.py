@@ -11,7 +11,7 @@ from services.stock_service import get_stock_info, get_stock_chart
 from services.screener_service import run_ma_convergence_screener
 from database import engine, Base
 import models
-from routes import auth_routes, watchlist_routes, ta_routes
+from routes import auth_routes, watchlist_routes
 from auth import get_current_user
 
 # Create database tables
@@ -31,8 +31,6 @@ app.add_middleware(
 
 app.include_router(auth_routes.router)
 app.include_router(watchlist_routes.router)
-app.include_router(ta_routes.router)
-
 
 @app.get("/indexes")
 async def get_indexes():

@@ -1,0 +1,25 @@
+[app]
+# ==============================
+# Fly.io configuration for StockPulse backend
+# ==============================
+app = "stockpulse-api"
+
+[build]
+  # Build will use the Dockerfile that already lives in this folder
+  dockerfile = "Dockerfile"
+
+[env]
+  # Set secrets via `fly secrets set` for security. Placeholder shown.
+  GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080          # matches the ENV PORT=8080 in Dockerfile
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80    # http
+    handlers = ["http"]
+  [[services.ports]]
+    port = 443   # https
+    handlers = ["tls", "http"]

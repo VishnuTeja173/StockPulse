@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-import { BarChart2, Briefcase, Bell, Settings, Zap, Activity } from "lucide-react"
+import { BarChart2, Briefcase, Bell, Settings, Zap, Activity, TrendingUp } from "lucide-react"
 
 const navLinks = [
-  { path: "/",          label: "Digest",    icon: Zap },
-  { path: "/portfolio", label: "Portfolio", icon: Briefcase },
-  { path: "/watchlist", label: "Watchlist", icon: BarChart2 },
-  { path: "/screener",  label: "Screener",  icon: Activity },
-  { path: "/alerts",    label: "Alerts",    icon: Bell },
+  { path: "/",            label: "Digest",      icon: Zap },
+  { path: "/portfolio",   label: "Portfolio",   icon: Briefcase },
+  { path: "/watchlist",   label: "Watchlist",   icon: BarChart2 },
+  { path: "/screener",    label: "Screener",    icon: Activity },
+  { path: "/tradingview", label: "TradingView", icon: TrendingUp },
+  { path: "/alerts",      label: "Alerts",      icon: Bell },
 ]
+
+
 
 export default function Navbar() {
   const { pathname } = useLocation()

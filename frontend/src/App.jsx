@@ -7,6 +7,7 @@ import Portfolio from "./pages/Portfolio"
 import Watchlist from "./pages/Watchlist"
 import Alerts from "./pages/Alerts"
 import Screener from "./pages/Screener"
+import TradingViewHub from "./pages/TradingViewHub"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 
@@ -42,6 +43,8 @@ export default function App() {
                 <Route path="/portfolio" element={<ProtectedRoute><Portfolio /></ProtectedRoute>} />
                 <Route path="/watchlist" element={<ProtectedRoute><Watchlist /></ProtectedRoute>} />
                 <Route path="/screener" element={<ProtectedRoute><Screener /></ProtectedRoute>} />
+                <Route path="/tradingview" element={<ProtectedRoute><TradingViewHub /></ProtectedRoute>} />
+                <Route path="/tradingview/:symbol" element={<ProtectedRoute><TradingViewHub /></ProtectedRoute>} />
                 <Route path="/alerts" element={<ProtectedRoute><Alerts /></ProtectedRoute>} />
               </Routes>
             </MainLayout>
@@ -51,3 +54,4 @@ export default function App() {
     </BrowserRouter>
   )
 }
+

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react"
-import { Activity, LineChart, ShieldCheck, Zap, Settings2 } from "lucide-react"
+import { Activity, LineChart, ShieldCheck, Zap, Settings2, TrendingUp } from "lucide-react"
 import { useAuth } from "../context/AuthContext"
 import ChartModal from "../components/ChartModal"
+
 
 const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8000"
 
@@ -235,11 +236,19 @@ setResults(filtered);
                 ))}
               </div>
 
-              <button onClick={() => setChartStock(buildChartStock(r))}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all hover:opacity-90"
-                style={{ background: "var(--surface)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.3)" }}>
-                <LineChart size={14} /> Open Chart
-              </button>
+              <div className="flex gap-2">
+                <button onClick={() => setChartStock(buildChartStock(r))}
+                  className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all hover:opacity-90"
+                  style={{ background: "var(--surface)", color: "#60a5fa", border: "1px solid rgba(96,165,250,0.3)" }}>
+                  <LineChart size={14} /> Quick Chart
+                </button>
+                <a href={`/tradingview/${r.symbol}`}
+                  className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all hover:opacity-90"
+                  style={{ background: "rgba(110,231,183,0.15)", color: "#6ee7b7", border: "1px solid rgba(110,231,183,0.3)" }}>
+                  <TrendingUp size={14} /> TradingView
+                </a>
+              </div>
+
             </div>
           ))}
         </div>

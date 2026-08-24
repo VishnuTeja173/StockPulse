@@ -218,15 +218,22 @@ export default function Watchlist() {
                   <button onClick={() => setChartStock(buildChartStock(s))}
                     className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-blue-500/20"
                     style={{ color: "#60a5fa" }}
-                    title="View chart">
+                    title="Quick chart">
                     <LineChart size={14} />
                   </button>
+                  {/* TradingView Studio button */}
+                  <a href={`/tradingview/${s.symbol}`}
+                    className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-emerald-500/20 text-emerald-400"
+                    title="TradingView Studio & AI Analysis">
+                    <TrendingUp size={14} />
+                  </a>
                   <a href={`https://finance.yahoo.com/quote/${s.symbol}.NS`}
                     target="_blank" rel="noopener noreferrer"
                     className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-blue-500/20"
                     style={{ color: "var(--muted)" }}>
                     <ExternalLink size={14} />
                   </a>
+
                   <button onClick={() => handleRemove(s.symbol)}
                     className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-red-500/20"
                     style={{ color: "var(--muted)" }}>
