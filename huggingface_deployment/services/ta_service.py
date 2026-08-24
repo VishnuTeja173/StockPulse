@@ -62,20 +62,29 @@ def _calculate_bollinger_bands(series: pd.Series, period: int = 20, std_dev: int
     }
 
 def _calculate_pivots(high: float, low: float, close: float) -> Dict[str, float]:
-    """Calculate Pivot Points (Classic Pivot, R1, R2, S1, S2)."""
+    """Calculate 7-tier technical key levels (Major Resistance to Major Support)."""
     pivot = (high + low + close) / 3.0
     r1 = (2 * pivot) - low
     s1 = (2 * pivot) - high
     r2 = pivot + (high - low)
     s2 = pivot - (high - low)
+    r3 = high + (2 * (pivot - low))
+    s3 = low - (2 * (high - pivot))
     
     return {
+        "major_resistance": round(r3, 2),
+        "resistance": round(r2, 2),
+        "near_resistance": round(r1, 2),
         "pivot": round(pivot, 2),
+        "support": round(s1, 2),
+        "strong_support": round(s2, 2),
+        "major_support": round(s3, 2),
         "r1": round(r1, 2),
         "r2": round(r2, 2),
         "s1": round(s1, 2),
         "s2": round(s2, 2),
     }
+
 
 def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
     """

@@ -301,22 +301,56 @@ export default function TradingViewHub() {
                   </div>
                 )}
 
-                {/* Key Levels: Support & Resistance */}
-                {aiDigest?.key_levels && (
-                  <div className="space-y-1.5">
-                    <div className="text-xs font-semibold text-slate-400">Pivot Key Levels:</div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="bg-rose-500/10 border border-rose-500/20 p-2 rounded-lg">
-                        <span className="text-slate-400 text-[10px] block">Resistance (R1 / R2)</span>
-                        <span className="font-semibold text-rose-300">₹{aiDigest.key_levels.resistance_1} / ₹{aiDigest.key_levels.resistance_2}</span>
+                {/* 7-Tier Technical Key Levels Roadmap */}
+                {taData?.pivot_points && (
+                  <div className="space-y-1.5 pt-1">
+                    <div className="text-xs font-semibold text-slate-400">Technical Key Levels Roadmap:</div>
+                    <div className="space-y-1 text-xs">
+                      {/* 🔴 Major Resistance */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-300">
+                        <span className="flex items-center gap-1.5 font-medium">🔴 Major resistance</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.major_resistance}</span>
                       </div>
-                      <div className="bg-emerald-500/10 border border-emerald-500/20 p-2 rounded-lg">
-                        <span className="text-slate-400 text-[10px] block">Support (S1 / S2)</span>
-                        <span className="font-semibold text-emerald-300">₹{aiDigest.key_levels.support_1} / ₹{aiDigest.key_levels.support_2}</span>
+
+                      {/* 🟠 Resistance */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-300">
+                        <span className="flex items-center gap-1.5 font-medium">🟠 Resistance</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.resistance}</span>
+                      </div>
+
+                      {/* 🟠 Near Resistance */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300">
+                        <span className="flex items-center gap-1.5 font-medium">🟠 Near resistance</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.near_resistance}</span>
+                      </div>
+
+                      {/* ⚪ Current / Pivot Area */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-100 font-semibold">
+                        <span className="flex items-center gap-1.5">⚪ Current/pivot area</span>
+                        <span className="font-mono font-extrabold text-blue-400">₹{taData.current_price} <span className="text-[10px] text-slate-400 font-normal">(Pivot: ₹{taData.pivot_points.pivot})</span></span>
+                      </div>
+
+                      {/* 🟢 Support */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+                        <span className="flex items-center gap-1.5 font-medium">🟢 Support</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.support}</span>
+                      </div>
+
+                      {/* 🟢 Strong Support */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-600/15 border border-emerald-500/30 text-emerald-400">
+                        <span className="flex items-center gap-1.5 font-medium">🟢 Strong support</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.strong_support}</span>
+                      </div>
+
+                      {/* 🟢 Major Support */}
+                      <div className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-emerald-700/20 border border-emerald-500/40 text-emerald-300">
+                        <span className="flex items-center gap-1.5 font-medium">🟢 Major support</span>
+                        <span className="font-mono font-bold">₹{taData.pivot_points.major_support}</span>
                       </div>
                     </div>
                   </div>
                 )}
+
 
                 {/* Indicator Bullet Points */}
                 {aiDigest?.indicator_signals?.length > 0 && (
