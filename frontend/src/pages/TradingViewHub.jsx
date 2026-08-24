@@ -231,14 +231,18 @@ export default function TradingViewHub() {
           </div>
 
 
-          {/* Embedded TradingView Advanced Charting Widget */}
+          {/* Embedded TradingView Interactive Charting Widget */}
           <div className="h-[560px]">
             <TradingViewWidget
               symbol={`${exchange}:${activeSymbol}`}
+              candles={taData?.candles || []}
+              pivots={taData?.pivot_points || {}}
+              movingAverages={taData?.moving_averages || {}}
               interval={timeframe}
               theme="dark"
             />
           </div>
+
           <div className="flex items-center justify-between text-[11px] bg-slate-900/60 p-2 rounded-xl border border-slate-800 text-slate-300">
             <span>💡 If TradingView restricts embedding (showing <em>"This symbol is only available on TradingView"</em>), click <strong className="text-amber-400">BSE</strong> above or <strong className="text-blue-400">"🔗 Open on TradingView.com"</strong>.</span>
             <span className="hidden md:inline text-slate-400">Gemini AI Analysis remains 100% active.</span>

@@ -241,10 +241,17 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
             else:
                 trade_status = "WAIT"
 
-            # TradingView Symbol
-            tv_symbol = f"NSE:{clean}" if suffix == ".NS" else (
-                f"BSE:{clean}" if suffix == ".BO" else f"NASDAQ:{clean}"
-            )
+            # Extract OHLC Candles history for TradingView Lightweight Chart Engine
+            candles = []
+            for idx, row in hist.iterrows():
+                candles.append({
+                    "time": idx.strftime("%Y-%m-%d"),
+                    "open": round(float(row["Open"]), 2),
+                    "high": round(float(row["High"]), 2),
+                    "low": round(float(row["Low"]), 2),
+                    "close": round(float(row["Close"]), 2),
+                    "volume": int(row["Volume"])
+                })
 
             return {
                 "symbol": clean,
@@ -262,6 +269,7 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
                 "market_regime": market_regime,
                 "trade_status": trade_status,
                 "setup_score": setup_score,
+                "candles": candles,
                 "moving_averages": {
                     "ema9": ema9,
                     "ema21": ema21,
@@ -278,6 +286,7 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
                 "confluence_zones": zones,
                 "technical_score": setup_score,
                 "overall_stance": "Strong Bullish" if setup_score >= 80 else ("Bullish" if setup_score >= 60 else ("Neutral" if setup_score >= 40 else "Bearish")),
+
             }
 
         except Exception as e:
