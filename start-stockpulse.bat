@@ -3,7 +3,8 @@ echo Starting StockPulse Servers...
 
 :: Start the Python Backend in a new window
 echo Starting Backend (FastAPI)...
-start cmd /k "cd backend && "C:\Users\vishn\AppData\Local\Programs\Python\Python312-arm64\python.exe" -m uvicorn main:app --reload --port 8000"
+start cmd /k "cd backend && "C:\Users\vishn\AppData\Local\Programs\Python\Python312-arm64\python.exe" -m uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+
 
 :: Start the React Frontend in a new window
 echo Starting Frontend (Vite)...

@@ -37,4 +37,9 @@ export default defineConfig({
       }
     })
   ],
+  server: {
+    host: true, // Listens on all local IP addresses (0.0.0.0) for testing on mobile/other devices
+    port: 5173
+  }
 })
+
