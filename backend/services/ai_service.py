@@ -46,7 +46,7 @@ Respond ONLY with valid JSON (no markdown, no extra text):
 {{"summary":"2-3 sentence plain English explanation","sentiment":"positive/negative/neutral","action":"BUY/HOLD/SELL/WATCH CLOSELY","impact":"one line about their specific holding","key_point":"the single most important thing today","risk_level":"low/medium/high"}}"""
 
     try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         headers = {"Content-Type": "application/json"}
         data = {
             "contents": [{"parts": [{"text": prompt}]}],
@@ -205,7 +205,7 @@ Respond ONLY with a valid JSON object following this exact schema:
         }
 
     try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         headers = {"Content-Type": "application/json"}
         data = {
             "contents": [{"parts": [{"text": system_prompt}]}],

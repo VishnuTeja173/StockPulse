@@ -147,8 +147,9 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
     Fetch price history and compute deterministic technical analysis indicators.
     Uses previous completed session's H, L, C for daily pivot calculation.
     """
-    clean = symbol.replace(".NS", "").replace(".BO", "").strip().upper()
+    clean = symbol.upper().replace("NSE:", "").replace("BSE:", "").replace("NASDAQ:", "").replace("NYSE:", "").replace(".NS", "").replace(".BO", "").strip()
     yf_period = PERIOD_MAP.get(period.upper(), "6mo")
+
     
     for suffix in [".NS", ".BO", ""]:
         try:
@@ -254,10 +255,16 @@ def get_stock_ta_data(symbol: str, period: str = "6M") -> Dict[str, Any]:
                     "volume": int(row["Volume"])
                 })
 
+            # TradingView Symbol
+            tv_symbol = f"NSE:{clean}" if suffix == ".NS" else (
+                f"BSE:{clean}" if suffix == ".BO" else f"NASDAQ:{clean}"
+            )
+
             return {
                 "symbol": clean,
                 "ticker_used": ticker_symbol,
                 "tradingview_symbol": tv_symbol,
+
                 "current_price": current_price,
                 "prev_close": prev_close,
                 "change": change,
